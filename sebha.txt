@@ -1,0 +1,3 @@
+version=2
+message=تحديث جديد لتطبيق السبحة! اضغط هنا للتحميل.
+link=https://yourdomain.com/sebha.apk
