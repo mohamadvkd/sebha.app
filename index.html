@@ -2558,5 +2558,15 @@ document.addEventListener('DOMContentLoaded', function() {
   addResetToSettings();
 });
     </script>
+    <script>
+fetch("sebha.txt")
+  .then(res => res.text())
+  .then(text => {
+    alert("📢 محتوى التحديث:\n\n" + text);
+  })
+  .catch(err => {
+    alert("❌ فشل الاتصال بملف التحديث:\n" + err);
+  });
+    </script>
   </body>
 </html>
