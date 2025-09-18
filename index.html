@@ -2558,15 +2558,38 @@ document.addEventListener('DOMContentLoaded', function() {
   addResetToSettings();
 });
     </script>
-    <script>
+    <div id="updateBox" style="display:none;position:fixed;bottom:20px;right:20px;
+     background:#fff8c6;padding:15px;border:1px solid #f0c000;border-radius:10px;
+     box-shadow:0 0 10px rgba(0,0,0,0.2);z-index:999;">
+  <strong>📢 تحديث متوفر!</strong><br>
+  <span id="updateMessage"></span><br><br>
+  <a id="updateLink" href="#" target="_blank" style="color:#007bff;">🔄 تحميل التحديث</a>
+</div>
+
+<script>
 fetch("sebha.txt")
   .then(res => res.text())
   .then(text => {
-    alert("📢 محتوى التحديث:\n\n" + text);
-  })
-  .catch(err => {
-    alert("❌ فشل الاتصال بملف التحديث:\n" + err);
+    const lines = text.split("\n");
+    let remoteVersion = 0;
+    let updateMessage = "";
+    let updateLink = "#";
+
+    for (const line of lines) {
+      const [key, value] = line.split("=");
+      if (key === "version") remoteVersion = parseFloat(value);
+      if (key === "message") updateMessage = value;
+      if (key === "link") updateLink = value;
+    }
+
+    const currentVersion = 1; // عدّل هذا حسب إصدارك الحالي
+
+    if (remoteVersion > currentVersion) {
+      document.getElementById("updateMessage").textContent = updateMessage;
+      document.getElementById("updateLink").href = updateLink;
+      document.getElementById("updateBox").style.display = "block";
+    }
   });
-    </script>
+</script>
   </body>
 </html>
